@@ -3,8 +3,17 @@ library(httr)
 
 ###################################################################################
 ## ## begin user-supplied variables ## ##
-## account credentials stored in a text file, which is kept private
-## to see what my file looks like, you could run ...
+requestInterval <- "hourly" # options: hourly, daily, or monthly
+startDate <- "2019-06-01"
+endDate <- "2019-07-01"
+## not "too long;" 31 days x hourly and full year of daily were OK
+
+credentials <- readLines("../credentials.txt")
+## ## end user-supplied variables ## ##
+###################################################################################
+
+## ## account credentials stored in a text file, which is kept private
+## ## to see what my file looks like, you could run ...
 ## cat(paste("GMPaccount: ",
 ##           paste(sample(x = 0:9, size = 10, replace = TRUE),
 ##                 collapse = ""),
@@ -18,18 +27,9 @@ library(httr)
 ##                 collapse = ""),
 ##           "\n",
 ##           sep = ""))
-credentials <- readLines("../credentials.txt")
 GMPaccount <- strsplit(credentials[1], " ")[[1]][2]
 apiKeyId <- strsplit(credentials[2], " ")[[1]][2]
 apiKeySecret <- strsplit(credentials[3], " ")[[1]][2]
-
-## other (~ self-explanatory) user-supplied variables
-requestInterval <- "daily" # options: hourly, daily, or monthly
-startDate <- "2018-10-30"
-## not "too long;" 31 days x hourly and full year of daily were OK
-endDate <- "2019-10-29"
-## ## end user-supplied variables ## ##
-###################################################################################
 
 ## base API
 GMPapiURL <- "https://api.greenmountainpower.com/api/v2/usage/"
@@ -52,9 +52,10 @@ GMPrequest$time
 
 ## parse content; parsing directly to an R object seems to work fine
 GMPcontent <- content(GMPrequest, as = "parsed")
+## review ~ metadata
 names(GMPcontent)
 GMPcontent$accountNumber
-names(GMPcontent$intervals[[1]])
+names(GMPcontent$intervals[[1]]) ## ~ data are in values processed below, but ...
 GMPcontent$intervals[[1]][1:5]
 
 ## automatic extraction of the variable names
