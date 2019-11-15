@@ -1,3 +1,7 @@
+## programmer Kristian Omland
+## github.com/komland/
+## 2019-10-28
+
 import requests
 import base64
 import json
@@ -11,8 +15,8 @@ apiKeySecret = ""
 
 ## other (~ self-explanatory) user-supplied variables
 requestInterval = "hourly" # can also be "daily" or "monthly"
-startDate = "2019-07-01"
-endDate = "2019-07-31" # not "too long;" 31 days x hourly was OK
+startDate = "2016-11-05"
+endDate = "2016-11-05" # not "too long;" 31 days x hourly was OK
 ## ## end user-supplied variables ## ##
 ###################################################################################
 
@@ -38,5 +42,5 @@ json_GMPcontent = GMPcontent.json()
 json_GMPcontent["accountNumber"]
 json_GMPcontent["intervals"] ## yikes! non-python coder here
 ## dump to json file
-with open("dat4.json", "w") as outfile:
+with open("..\dat4.json", "w") as outfile:
     json.dump(json_GMPcontent, outfile)
