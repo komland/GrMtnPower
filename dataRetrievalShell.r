@@ -1,31 +1,39 @@
 ## programmer Kristian Omland
-## github.com/komland/
+## github.com/komland/GrMtnPower/
 ## 2019-11-15
 
 ## a simple example of running my R script to retrieve meter data from my GMP account
 
+## load previously retrieved data
+## dat4 <- readRDS("../dat4Gotten20201207.RDS")
+
 source("getGMPdata.r")
 
-dat3 <- buildAndGet(intrvl = "hourly", # hourly, daily, or monthly
-                    strDt = "2019-11-01",
-                    endDt = "2019-11-22")
-## limitations appears to be:
-## - 1 month of hourly or
-## - 1 year of daily
-## appears I can get a day more than that:
-## - 32 days of hourly
-## - 366 days of daily for a non-leap year or 367 days for a leap year ...
-##   but not 367 days for a non-leap year!
+## firstMonths <- as.IDate(paste0("2020-", c(paste0("0", 1:9), 10:12), "-01"))
+## lastMonths <- firstMonths[2:length(firstMonths)] - 1
+## firstMonths <- firstMonths[1:(length(firstMonths) - 1)]
+## cbind(as.character(firstMonths), as.character(lastMonths))
 
-## 1 month of hourly: 31 * 24 = 744 records works
-## still works with an extra day (768 records) but not 33 days (792 records)
-## 1 year of daily, whether leap year (366 records) or not (365 works)
-## you can get an extra day (366 for non-leap, 367 for leap) ...
-## but not necessarily 367 (not 2 extra days on a non-leap year!)
+for(i in 1:length(firstMonths)){
+    print(i)
+    dat3 <- buildAndGet(intrvl = "hourly", # hourly, daily, or monthly
+                        strDt = firstMonths[i],
+                        endDt = lastMonths[i])
 
-## review time report
-dat3[[1]]
+    if(all(dat3[,consumed] == dat3[,consumedTotal])){
+        names(dat3)[names(dat3) == "consumed"] <- "consumedFromGrid"
+    }else{
+        stop("check \'consumed\' and \'consumedTotal\'")
+    }
 
-## parsed data
-head(dat4 <- dat3[[2]])
-tail(dat4)
+    dat3[,c("dateTime", "dateForm") := .(
+              as.POSIXct(sub("Z", "", sub("T", " ", date)), tz = "America/New_York"),
+              as.IDate(date))]
+
+    dat3[,consumedGeneration := generation - returnedGeneration]
+    dat3[,totalConsumed := consumedFromGrid + consumedGeneration]
+
+    dat4 <- rbind(dat4, dat3)
+}
+
+## saveRDS(dat4, file = paste0("../dat4Gotten", gsub("-", "", Sys.Date()), ".RDS"))
