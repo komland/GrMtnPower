@@ -7,8 +7,8 @@
 source("getGMPdata.r")
 
 dat3 <- buildAndGet(intrvl = "hourly", # hourly, daily, or monthly
-                    strDt = "2017-10-23",
-                    endDt = "2017-11-05")
+                    strDt = "2019-11-01",
+                    endDt = "2019-11-22")
 ## limitations appears to be:
 ## - 1 month of hourly or
 ## - 1 year of daily
