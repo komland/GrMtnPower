@@ -5,12 +5,12 @@
 ## a simple example of running my R script to retrieve meter data from my GMP account
 
 ## load previously retrieved data
-dat4 <- readRDS("../dat4Gotten20201207.RDS")
+dat4 <- readRDS("../dat4Gotten20210126.RDS")
 
 source("getGMPdata.r")
 
 ## firstMonths <- as.IDate(paste0("2020-", c(paste0("0", 1:9), 10:12), "-01"))
-firstMonths <- as.IDate(c("2020-12-01", "2021-01-01"))
+firstMonths <- as.IDate(c("2021-01-01", "2021-02-01"))
 lastMonths <- firstMonths[2:length(firstMonths)] - 1
 firstMonths <- firstMonths[1:(length(firstMonths) - 1)]
 cbind(as.character(firstMonths), as.character(lastMonths))
