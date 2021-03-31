@@ -9,7 +9,7 @@ library(data.table)
 
 ##################################################################################
 ## ##         the only user-supplied variable is the credential file         ## ##
-credentials <- readLines("../credentials.txt")
+credentials <- readLines("credentials.txt")
 ## ## to see what my credentials file looks like, you could uncomment and run ...
 ## cat(paste("GMPaccount: ",
 ##           paste(sample(x = 0:9, size = 10, replace = TRUE),
