@@ -15,14 +15,14 @@ if(length(availableFiles) == 1){
 }
 
 ## retrieve data since latest
-latestDate <- as.IDate(dat4[.N, dateTime])
+(latestDate <- as.IDate(dat4[.N, dateTime]))
 currentDate <- as.IDate(Sys.time())
 if(difftime(currentDate, latestDate, units = "days") > 30){
     stop("\nBreak up request into smaller chunks")
 }
 dat3 <- buildAndGet(intrvl = "hourly",
                     strDt = latestDate,
-                    endDt = currentDate)
+                    endDt = currentDate)#as.IDate("2021-07-31"))
 
 dat3[,c("dateTime", "dateForm") := .(
     as.POSIXct(sub("Z", "", sub("T", " ", date)), tz = "America/New_York"),
@@ -30,10 +30,12 @@ dat3[,c("dateTime", "dateForm") := .(
 
 ## check for unpopulated rows
 ## as long as they are ~today~, lop them off
-if(dat3[is.na(consumed), min(dateForm)] == Sys.Date()){
-    dat3 <- dat3[!is.na(consumed)]
-}else{
-    stop("\nCheck on missing data")
+if(dat3[is.na(consumed), .N] > 0){
+    if(dat3[is.na(consumed), min(dateForm)] == Sys.Date()){
+        dat3 <- dat3[!is.na(consumed)]
+    }else{
+        stop("\nCheck on missing data")
+    }
 }
 
 ## verify agreement between consumed and consumedTotal
@@ -48,16 +50,25 @@ dat3[,consumedGeneration := generation - returnedGeneration]
 dat3[,totalConsumed := consumedFromGrid + consumedGeneration]
 
 ## check for agreement of columns - sparseness of temperature known
-if((length(setdiff(names(dat4), names(dat3))) == 0 |
-    setdiff(names(dat4), names(dat3)) == "temperature") &
-   length(setdiff(names(dat3), names(dat4))) == 0){
-    dat5 <- rbind(dat4, dat3, fill = TRUE)
+if(length(setdiff(names(dat4), names(dat3))) == 0){
+    dat5 <- rbind(dat4[!date %chin% dat3[,date]], # use fresher rows from dat3
+                  dat3,
+                  fill = TRUE)
 }else{
+    if(setdiff(names(dat4), names(dat3)) == "temperature"){
+        dat5 <- rbind(dat4[!date %chin% dat3[,date]], # use fresher rows from dat3
+                      dat3,
+                      fill = TRUE)
+    }
     stop("\nCheck missing columns")
 }
 
 ## verify losing no information
-if(all.equal(dat4, dat5[date %chin% dat4[,date]])){
+foo <- dat4
+setkey(foo, date)
+bar <- dat5[date %chin% dat4[,date]]
+setkey(bar, date)
+if(all.equal(foo, bar)){
     saveRDS(dat5, file = paste0("data/dat4Gotten", gsub("-", "", Sys.Date()), ".RDS"))
 }else{
     stop("\nCheck for lost data")
