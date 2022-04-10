@@ -4,6 +4,8 @@
 
 ## a simple example of running my R script to retrieve meter data from my GMP account
 
+renv::restore()
+
 ## load previously retrieved data
 dat4 <- readRDS("../dat4Gotten20210126.RDS")
 

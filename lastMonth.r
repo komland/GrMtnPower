@@ -63,7 +63,7 @@ foo[, JDnaive := JD(dateTime)]
 foo
 
 
-[,{
+foo[,{
   sp <- solarPosition(jd = foo[,julianDay], lon = -72.979348, lat = 44.468674)
   list(zenith = sp[,1],
        azimuth = sp[,2])

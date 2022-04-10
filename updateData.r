@@ -16,7 +16,7 @@ if(length(availableFiles) == 1){
 
 ## retrieve data since latest
 (latestDate <- as.IDate(dat4[.N, dateTime]))
-currentDate <- as.IDate(Sys.time())
+currentDate <- as.IDate(Sys.time()) - 1
 if(difftime(currentDate, latestDate, units = "days") > 30){
     stop("\nBreak up request into smaller chunks")
 }
