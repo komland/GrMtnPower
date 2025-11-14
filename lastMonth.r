@@ -2,7 +2,6 @@ library(data.table)
 library(mgcv)
 library(lubridate)
 library(solarPos)
-library(insol)
 library(lattice)
 
 cbPalette <- c("#E69F00", "#56B4E9", "#009E73",
@@ -21,20 +20,31 @@ if(length(availableFiles) == 1){
                          ".RDS"))
 }
 
-# model of generation based on daily and seasonal components
-dat4[, timeDay := as.numeric(as.ITime(dateTime))/(24*60^2)]
-dat4[, dayYear := as.POSIXlt(date)$yday/366]
-fmGen <- gam(formula = generation ~ s(dayYear, timeDay), data = dat4)
-plot(fmGen)
+dat4[, dateTimeUTC := as.POSIXct(format(dateTime, tz = "UTC"), tz = "UTC")]
+dat4[, JD := julianDay(
+  year(dateTimeUTC), 
+  month(dateTimeUTC), 
+  mday(dateTimeUTC), 
+  hour(dateTimeUTC)
+)]
+
+# # model of generation based on daily and seasonal components
+# dat4[, timeDay := as.numeric(as.ITime(dateTime))/(24*60^2)]
+# dat4[, dayYear := as.POSIXlt(date)$yday/366]
+# fmGen <- gam(formula = generation ~ s(dayYear, timeDay), data = dat4)
+# plot(fmGen)
 
 # but I really want a hierarchical model where
 # potential is smooth over timeDay within dayYear (basically like fmGen)
 # but loss is always positive, occasionally 0, gamma
-foo <- dat4[!is.na(generation),.(dateTime, generation)]
-foo[, JD := JD(dateTime)]
-sunPos <- sunpos(sunvector(foo[,JD], 44.468674, -72.979348, -5))
-foo[, c("azimuth", "zenith") := .(sunPos[,1], sunPos[,2])]
+foo <- dat4[!is.na(generation),.(dateTime, JD, generation)]
+sunPos <- solarPosition(jd = foo[,JD], lon = -72.979348, lat = 44.468674)
+foo[, `:=`(
+  zenith = sunPos[, 1],
+  azimuth = sunPos[, 2]
+)]
 foo[generation > 0.5, range(azimuth)]
+foo[generation > 0.5, range(zenith)]
 
 fmGen <- gam(generation ~ s(azimuth, zenith),
              data = foo[zenith <= 90 & azimuth %between% c(135, 315)])
@@ -45,35 +55,6 @@ foo[,plot(azimuth, generation)]
 foo[plot(lubridate::hour(dateTime), zenith)]
 foo[plot(lubridate::yday(dateTime), zenith)]
 foo[plot(1:.N, zenith)]
-
-
-foo[, dst := dst(dateTime)]
-foo[, UTCtime := as.POSIXct(ifelse(dst, dateTime + 4/24, dateTime + 4/24), tz = "UTC", origin = "1970-01-01")]
-foo[, c("jYear", "jMonth", "jDay", "jHour") :=
-      .(lubridate::year(UTCtime),
-        lubridate::month(UTCtime),
-        lubridate::mday(UTCtime),
-        lubridate::hour(UTCtime))]
-foo[, julianDay := julianDay(year = jYear,
-                             month = jMonth,
-                             day = jDay,
-                             hour = jHour)]
-foo[, JD := JD(UTCtime)]
-foo[, JDnaive := JD(dateTime)]
-foo
-
-
-foo[,{
-  sp <- solarPosition(jd = foo[,julianDay], lon = -72.979348, lat = 44.468674)
-  list(zenith = sp[,1],
-       azimuth = sp[,2])
-}]
-
-# [, c("year", "month", "day", "hour") :=
-#       .(fooDate$year + 1900,
-#         fooDate$mon + 1,
-#         fooDate$mday,fooDate$hour)]
-
 
 ## most recent 30 days
 lastMonth <- dat4[dateTime %between% c(dat4[,max(dateTime)] - 30 * 24 * 60^2,
