@@ -1,9 +1,5 @@
+.Renviron
 .Rhistory
 .Rproj.user/
-*.Rproj
-*.png
-credentials.txt
 data/
-.Rproj.user
-
-cutFrom_getGMPdata
+archive/*.png

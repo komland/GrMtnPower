@@ -8,35 +8,30 @@ library(jsonlite)
 library(data.table)
 
 ##################################################################################
-## ##         the only user-supplied variable is the credential file         ## ##
-credentials <- readLines("credentials.txt")
-## ## to see what my credentials file looks like, you could uncomment and run ...
-## cat(paste("GMPaccount: ",
-##           paste(sample(x = 0:9, size = 10, replace = TRUE),
-##                 collapse = ""),
-##           "\n",
-##           "apiKeyId: ",
-##           paste(sample(x = c(0:9, letters, LETTERS), size = 25, replace = TRUE),
-##                 collapse = ""),
-##           "\n",
-##           "apiKeySecret: ",
-##           paste(sample(x = c(0:9, letters, LETTERS), size = 50, replace = TRUE),
-##                 collapse = ""),
-##           "\n",
-##           sep = ""))
+## ##         Credentials are read from environment variables               ## ##
+## ## Set these in .Renviron (project root or home directory):              ## ##
+## GMP_ACCOUNT=your-account-number                                         ## ##
+## GMP_KEY_ID=your-api-key-id                                              ## ##
+## GMP_KEY_SECRET=your-api-secret                                          ## ##
 ##################################################################################
 
-## extracting the three variables stored in the text
-GMPaccount <- strsplit(credentials[1], " ")[[1]][2]
-apiKeyId <- strsplit(credentials[2], " ")[[1]][2]
-apiKeySecret <- strsplit(credentials[3], " ")[[1]][2]
+## Read credentials from environment
+GMPaccount <- Sys.getenv("GMP_ACCOUNT")
+apiKeyId <- Sys.getenv("GMP_KEY_ID")
+apiKeySecret <- Sys.getenv("GMP_KEY_SECRET")
+
+## Verify credentials are present
+if (GMPaccount == "" || apiKeyId == "" || apiKeySecret == "") {
+  stop("Missing GMP credentials in environment variables.\n",
+       "Set GMP_ACCOUNT, GMP_KEY_ID, and GMP_KEY_SECRET in .Renviron")
+}
 ## assemble/encode the API key ID and secret as header to be supplied with request
 idSecret <- paste(apiKeyId, ":", apiKeySecret, sep = "")
 b64Key <- base64encode(charToRaw(idSecret))
 reqHead <- paste("Basic ", b64Key, sep = "")
 ## with those objects having been assembled in the form needed, rm for privacy
 ## nb GMPaccount not removed - used directly and included in the output anyway
-rm(credentials, apiKeyId, apiKeySecret, idSecret, b64Key)
+rm(idSecret, b64Key)
 
 ## base API
 GMPapiURL <- "https://api.greenmountainpower.com/api/v2/usage/"
