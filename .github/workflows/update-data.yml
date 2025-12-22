@@ -21,18 +21,14 @@ jobs:
         with:
           r-version: '4.5.2'
       
-      - name: Setup renv
-        uses: r-lib/actions/setup-renv@v2
-      
       - name: Install system dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev
-      
-      - name: Restore R package dependencies
-        run: |
-          Rscript -e 'renv::restore()'
-      
+          
+      - name: Setup renv
+        uses: r-lib/actions/setup-renv@v2
+            
       - name: Update power data
         env:
           GMP_ACCOUNT: ${{ secrets.GMP_ACCOUNT }}
