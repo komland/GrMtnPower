@@ -6,24 +6,28 @@
 #'
 #' @return data.table with columns: date, consumed, generation, returnedGeneration, etc.
 #' @details
-#' Looks for files matching pattern "dat4Gotten*.RDS" and loads the most recent.
-#' Falls back to loading any single RDS if only one exists.
+#' Looks for power_data.RDS as canonical file. Falls back to timestamped backups.
 load_latest_data <- function() {
-  availableFiles <- list.files("data/", pattern = "^dat4Gotten.*\\.RDS$")
+  canonical <- "data/power_data.RDS"
+  
+  # Try canonical file first
+  if (file.exists(canonical)) {
+    return(readRDS(canonical))
+  }
+  
+  # Fall back to timestamped backups (legacy or recovery)
+  availableFiles <- list.files("data/", pattern = "^power_data_.*\\.RDS$")
   
   if (length(availableFiles) == 0) {
     stop("No data files found in data/ directory")
   }
   
-  if (length(availableFiles) == 1) {
-    filePath <- paste0("data/", availableFiles[1])
-  } else {
-    # Extract date from filename (format: dat4Gotten20251105.RDS)
-    fileDates <- as.numeric(substr(availableFiles, 11, 18))
-    mostRecentIdx <- which.max(fileDates)
-    filePath <- paste0("data/", availableFiles[mostRecentIdx])
-  }
+  # Extract dates and find most recent
+  fileDates <- as.numeric(gsub("power_data_(\\d{8})\\.RDS", "\\1", availableFiles))
+  mostRecentIdx <- which.max(fileDates)
+  filePath <- paste0("data/", availableFiles[mostRecentIdx])
   
+  cat("Warning: Using backup file", filePath, "\n")
   return(readRDS(filePath))
 }
 
@@ -31,18 +35,29 @@ load_latest_data <- function() {
 #'
 #' @param dat data.table to save
 #' @param dateStr optional date string (default: Sys.Date() formatted as YYYYMMDD)
+#' @param createBackup logical: if TRUE, also create timestamped backup (default: TRUE)
 #' @return invisibly returns the filepath saved
 #' @details
-#' Saves as "data/dat4Gotten{YYYYMMDD}.RDS"
-save_data_checkpoint <- function(dat, dateStr = NULL) {
+#' Saves as "data/power_data.RDS" (canonical) and optionally "data/power_data_{YYYYMMDD}.RDS" (backup)
+save_data_checkpoint <- function(dat, dateStr = NULL, createBackup = TRUE) {
   if (is.null(dateStr)) {
     dateStr <- gsub("-", "", as.character(Sys.Date()))
   }
   
-  filePath <- paste0("data/dat4Gotten", dateStr, ".RDS")
-  saveRDS(dat, file = filePath)
-  cat("Saved checkpoint:", filePath, "\n")
-  return(invisible(filePath))
+  canonicalPath <- "data/power_data.RDS"
+  
+  # Save canonical file
+  saveRDS(dat, file = canonicalPath)
+  cat("Saved canonical dataset:", canonicalPath, "\n")
+  
+  # Create timestamped backup
+  if (createBackup) {
+    backupPath <- paste0("data/power_data_", dateStr, ".RDS")
+    saveRDS(dat, file = backupPath)
+    cat("Saved timestamped backup:", backupPath, "\n")
+  }
+  
+  return(invisible(canonicalPath))
 }
 
 #' Verify column agreement and compatibility
@@ -136,4 +151,98 @@ parse_gmp_datetime <- function(dateStr, tz = "America/New_York") {
   # Remove Z suffix, replace T with space, parse as POSIXct
   cleaned <- sub("Z", "", sub("T", " ", dateStr))
   return(as.POSIXct(cleaned, tz = tz))
+}
+
+#' Validate updated dataset before saving
+#'
+#' @param dat_new data.table with newly merged data
+#' @param dat_old data.table with previous data (for comparison)
+#' @return list with validation results: passed (logical), messages (character vector)
+#' @details
+#' Checks:
+#' 1. New data has more rows than old
+#' 2. Date range extended (not gaps)
+#' 3. No duplicate dates
+#' 4. Required columns present
+#' 5. No excessive NAs in key columns
+validate_updated_dataset <- function(dat_new, dat_old) {
+  messages <- character()
+  passed <- TRUE
+  
+  # Check 1: Row count increased
+  if (nrow(dat_new) <= nrow(dat_old)) {
+    passed <- FALSE
+    messages <- c(messages, sprintf(
+      "FAIL: Row count didn't increase (old: %d, new: %d)",
+      nrow(dat_old), nrow(dat_new)
+    ))
+  } else {
+    messages <- c(messages, sprintf(
+      "PASS: Added %d new rows (old: %d, new: %d)",
+      nrow(dat_new) - nrow(dat_old), nrow(dat_old), nrow(dat_new)
+    ))
+  }
+  
+  # Check 2: Date range extended
+  old_max_date <- dat_old[, max(dateTime, na.rm = TRUE)]
+  new_max_date <- dat_new[, max(dateTime, na.rm = TRUE)]
+  
+  if (new_max_date <= old_max_date) {
+    passed <- FALSE
+    messages <- c(messages, sprintf(
+      "FAIL: Date range didn't extend (old max: %s, new max: %s)",
+      old_max_date, new_max_date
+    ))
+  } else {
+    messages <- c(messages, sprintf(
+      "PASS: Date range extended to %s (was %s)",
+      new_max_date, old_max_date
+    ))
+  }
+  
+  # Check 3: No duplicate dates
+  dup_count <- dat_new[, sum(duplicated(date))]
+  if (dup_count > 0) {
+    passed <- FALSE
+    messages <- c(messages, sprintf(
+      "FAIL: Found %d duplicate dates",
+      dup_count
+    ))
+  } else {
+    messages <- c(messages, "PASS: No duplicate dates")
+  }
+  
+  # Check 4: Required columns present
+  required_cols <- c("date", "dateTime", "dateForm", "consumedFromGrid", 
+                     "generation", "returnedGeneration", "totalConsumed")
+  missing_cols <- setdiff(required_cols, names(dat_new))
+  if (length(missing_cols) > 0) {
+    passed <- FALSE
+    messages <- c(messages, sprintf(
+      "FAIL: Missing required columns: %s",
+      paste(missing_cols, collapse = ", ")
+    ))
+  } else {
+    messages <- c(messages, "PASS: All required columns present")
+  }
+  
+  # Check 5: NA counts in key columns
+  na_consumed <- dat_new[, sum(is.na(consumedFromGrid))]
+  na_generation <- dat_new[, sum(is.na(generation))]
+  total_rows <- nrow(dat_new)
+  
+  if (na_consumed / total_rows > 0.1) {
+    passed <- FALSE
+    messages <- c(messages, sprintf(
+      "FAIL: Excessive NAs in consumedFromGrid: %d (%.1f%%)",
+      na_consumed, 100 * na_consumed / total_rows
+    ))
+  } else {
+    messages <- c(messages, sprintf(
+      "PASS: Acceptable NA rate in consumedFromGrid: %d (%.1f%%)",
+      na_consumed, 100 * na_consumed / total_rows
+    ))
+  }
+  
+  return(list(passed = passed, messages = messages))
 }

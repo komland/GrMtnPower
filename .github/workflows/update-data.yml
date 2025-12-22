@@ -25,10 +25,10 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev
-          
+      
       - name: Setup renv
         uses: r-lib/actions/setup-renv@v2
-            
+      
       - name: Update power data
         env:
           GMP_ACCOUNT: ${{ secrets.GMP_ACCOUNT }}
@@ -41,7 +41,7 @@ jobs:
         run: |
           git config --local user.name "GitHub Actions Bot"
           git config --local user.email "actions@github.com"
-          git add data/dat4Gotten*.RDS
+          git add data/power_data.RDS data/power_data_*.RDS
           git diff --staged --quiet || git commit -m "Auto-update power data: $(date +'%Y-%m-%d')"
           git push
         env:

@@ -120,8 +120,11 @@ This project retrieves hourly meter data from a residential solar + storage syst
 
 ### Data
 
-**`data/dat4Gotten*.RDS`**
-- Checkpoints of processed hourly data
+**`data/power_data.RDS`**
+- Canonical dataset (current version, always up-to-date)
+
+**`data/power_data_YYYYMMDD.RDS`**
+- Timestamped backups for version control and recovery
 - Format: data.table with columns:
   - `date`: ISO 8601 string (original API field)
   - `dateTime`: POSIXct (local America/New_York)

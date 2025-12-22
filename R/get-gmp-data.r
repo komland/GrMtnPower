@@ -49,6 +49,7 @@ buildAndGet <- function(intrvl, strDt, endDt){
     if(GMPrequest$status_code == 200){
         return(setDT(fromJSON(content(GMPrequest, as = "text"))$intervals$values[[1]]))
     }else{
-        stop(paste("Status Code", GMPrequest$status_code))
+        stop(sprintf("Status Code %d - Requested dates: %s to %s", 
+                     GMPrequest$status_code, strDt, endDt))
     }
 }

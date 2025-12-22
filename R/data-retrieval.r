@@ -17,6 +17,12 @@ retrieve_new_data <- function(latestDate, currentDate = NULL, maxChunkSize = 29)
     currentDate <- as.IDate(Sys.time()) - 1
   }
   
+  # Check if already up-to-date
+  if (latestDate >= currentDate) {
+    cat("Data already up-to-date through", as.character(latestDate), "\n")
+    return(NULL)
+  }
+  
   # Handle large date ranges by chunking
   if (difftime(currentDate, latestDate, units = "days") > maxChunkSize) {
     currentDate <- latestDate + maxChunkSize
@@ -77,17 +83,20 @@ merge_and_validate <- function(dat_old, dat_new) {
   return(dat_merged)
 }
 
-#' Main retrieval and update pipeline
+#' Main retrieval and update pipeline with validation safeguards
 #'
 #' @param outputCheckpoint logical: save checkpoint file after successful merge
+#' @param validateBeforeSave logical: run validation checks before saving (default: TRUE)
 #' @return data.table with merged and validated hourly data
 #' @details
+#' Safe update workflow:
 #' 1. Load latest existing data
 #' 2. Retrieve new hourly data from API (since last date)
 #' 3. Merge and validate
-#' 4. Save checkpoint (optional)
-#' 5. Return merged data
-update_power_data <- function(outputCheckpoint = TRUE) {
+#' 4. Run validation checks (if enabled)
+#' 5. Save canonical + backup (if validation passes)
+#' 6. Return merged data
+update_power_data <- function(outputCheckpoint = TRUE, validateBeforeSave = TRUE) {
   cat("Loading existing data...\n")
   dat_old <- load_latest_data()
   
@@ -95,11 +104,34 @@ update_power_data <- function(outputCheckpoint = TRUE) {
   latestDate <- as.IDate(dat_old[.N, dateTime])
   dat_new <- retrieve_new_data(latestDate)
   
+  # If no new data, return existing data
+  if (is.null(dat_new)) {
+    cat("No new data to retrieve. Dataset is current.\n")
+    return(dat_old)
+  }
+  
   cat("Merging and validating...\n")
   dat_merged <- merge_and_validate(dat_old, dat_new)
   
+  # Run comprehensive validation
+  if (validateBeforeSave) {
+    cat("\nRunning validation checks...\n")
+    validation <- validate_updated_dataset(dat_merged, dat_old)
+    
+    # Print validation results
+    for (msg in validation$messages) {
+      cat("  ", msg, "\n")
+    }
+    
+    if (!validation$passed) {
+      stop("\nValidation FAILED. Data not saved. Review errors above.")
+    }
+    
+    cat("\nValidation PASSED ✓\n")
+  }
+  
   if (outputCheckpoint) {
-    save_data_checkpoint(dat_merged)
+    save_data_checkpoint(dat_merged, createBackup = TRUE)
   }
   
   cat("Update complete. Total rows:", nrow(dat_merged), "\n")
