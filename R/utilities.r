@@ -114,9 +114,9 @@ verify_no_data_loss <- function(dat_old, dat_new, dat_merged, keyCol = "date") {
   oldRows <- dat_old[!get(keyCol) %in% dat_new[[keyCol]]]
   
   # Compare old rows that weren't updated with merged result
-  setkey(oldRows, eval(keyCol))
+  setkeyv(oldRows, keyCol)
   mergedSubset <- dat_merged[get(keyCol) %in% oldRows[[keyCol]]]
-  setkey(mergedSubset, eval(keyCol))
+  setkeyv(mergedSubset, keyCol)
   
   comparison <- all.equal(oldRows, mergedSubset, check.attributes = FALSE)
   

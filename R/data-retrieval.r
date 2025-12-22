@@ -10,9 +10,9 @@ source("R/data-processing.r")
 #'
 #' @param latestDate IDate of the last date in existing data
 #' @param currentDate IDate up to which to retrieve (default: Sys.time() - 1 day)
-#' @param maxChunkSize maximum days to request in one API call (default: 30)
+#' @param maxChunkSize maximum days to request in one API call (default: 29)
 #' @return data.table with new hourly data, transformed and validated
-retrieve_new_data <- function(latestDate, currentDate = NULL, maxChunkSize = 30) {
+retrieve_new_data <- function(latestDate, currentDate = NULL, maxChunkSize = 29) {
   if (is.null(currentDate)) {
     currentDate <- as.IDate(Sys.time()) - 1
   }
@@ -24,6 +24,7 @@ retrieve_new_data <- function(latestDate, currentDate = NULL, maxChunkSize = 30)
   }
   
   # Fetch from API
+  cat("Fetching data from", as.character(latestDate), "to", as.character(currentDate), "\n")
   dat_new <- buildAndGet(
     intrvl = "hourly",
     strDt = latestDate,
@@ -47,6 +48,8 @@ retrieve_new_data <- function(latestDate, currentDate = NULL, maxChunkSize = 30)
   
   # Handle unpopulated rows (incomplete today)
   dat_new <- check_unpopulated_rows(dat_new, removeIfToday = TRUE)
+  
+  return(dat_new)
 }
 
 #' Merge new data into existing dataset with validation
