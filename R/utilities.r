@@ -2,6 +2,9 @@
 # Shared functions for data loading, saving, and validation
 # Kristian Omland
 
+library(data.table)
+library(lubridate)
+
 #' Load the most recent RDS data file from data/ directory
 #'
 #' @return data.table with columns: date, consumed, generation, returnedGeneration, etc.

@@ -13,6 +13,9 @@ setup_gmp_colors()
 dat <- load_latest_data()
 dat <- apply_standard_transformations(dat, addSolarPos = FALSE)
 
+# Remove incomplete days (e.g., today with only midnight reading)
+dat <- remove_incomplete_days(dat)
+
 # Aggregate to daily
 datDaily <- aggregate_daily(dat)
 
@@ -21,13 +24,13 @@ datWeekly <- aggregate_weekly(dat)
 
 cat("=== STANDARD VISUALIZATIONS ===\n\n")
 
-# Plot 1: Full history daily
-cat("1. Entire generation and usage history (daily aggregation)...\n")
-print(plot_daily_summary(datDaily, "Full History: Daily Generation and Consumption"))
+# Plot 1: Full history weekly
+cat("1. Entire generation and usage history (weekly aggregation)...\n")
+print(plot_weekly_summary(datWeekly, "Full History: Weekly Generation and Consumption"))
 
 # Plot 2: Past year weekly
 cat("2. Past year generation and usage (weekly aggregation)...\n")
-print(plot_past_year(datDaily))
+print(plot_past_year_weekly(datWeekly))
 
 # Plot 3: Last month daily
 cat("3. Past month generation, usage, and returns (daily)...\n")

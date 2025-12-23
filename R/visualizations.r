@@ -3,6 +3,8 @@
 # Kristian Omland
 
 library(lattice)
+library(data.table)
+library(lubridate)
 
 #' Set up lattice color palette for GMP plots
 #'
@@ -28,7 +30,46 @@ plot_daily_summary <- function(datDaily, title = "Daily Generation and Consumpti
          main = title,
          pch = 18, type = "b",
          xlab = "Date", ylab = "Energy (kWh)",
-         auto.key = list(space = "right"))
+         auto.key = list(space = "bottom", columns = 2))
+}
+
+#' Plot weekly generation and consumption
+#'
+#' @param datWeekly data.table with year, isoweek, generated, consumed columns
+#' @param title optional plot title
+#' @return lattice xyplot object
+plot_weekly_summary <- function(datWeekly, title = "Weekly Generation and Consumption") {
+  # Create week labels and identify special weeks (12 and 38)
+  datWeekly[, week_label := paste0(year, "-W", sprintf("%02d", isoweek))]
+  datWeekly[, row_index := seq_len(.N)]
+  
+  # Find indices where isoweek is 12 or 38 (spring/fall equinox markers)
+  equinox_indices <- datWeekly[isoweek %in% c(12, 38), row_index]
+  equinox_labels <- datWeekly[isoweek %in% c(12, 38), week_label]
+  
+  # Find indices for even-numbered weeks for lighter grid lines
+  even_week_indices <- datWeekly[isoweek %% 2 == 0, row_index]
+  
+  xyplot(generated + consumed ~ row_index, datWeekly,
+         main = title,
+         pch = 18, type = "b",
+         xlab = "Week", ylab = "Energy (kWh)",
+         scales = list(x = list(
+           at = equinox_indices,
+           labels = equinox_labels,
+           rot = 90
+         )),
+         auto.key = list(space = "bottom", columns = 2),
+         panel = function(x, y, ...) {
+           # Light vertical lines every 2 weeks (even weeks)
+           panel.abline(v = even_week_indices, col = gray(0.9))
+           # Bold vertical lines at weeks 12 and 38
+           panel.abline(v = equinox_indices, col = gray(0.6))
+           # Horizontal grid lines
+           panel.abline(h = seq(-100, 500, 10), col = gray(0.9))
+           panel.abline(h = seq(-100, 500, 50), col = gray(0.6))
+           panel.xyplot(x, y, ...)
+         })
 }
 
 #' Plot recent month's daily breakdown
@@ -42,13 +83,13 @@ plot_last_n_days <- function(datDaily, nDays = 30) {
   xyplot(consumed + returned + generated ~ dateForm, dat_subset,
          type = "b", xlab = "", ylab = "Energy (kWh)",
          main = paste("Last", nDays, "Days"),
-         auto.key = list(space = "right"),
+         auto.key = list(space = "bottom", columns = 3),
          scales = list(x = list(at = dat_subset[wday(dateForm) == 1, dateForm])),
          panel = function(x, y, ...) {
            panel.abline(v = dat_subset[, dateForm], col = gray(0.9))
            panel.abline(v = dat_subset[wday(dateForm) == 1, dateForm], col = gray(0.6))
-           panel.abline(h = 0:50, col = gray(0.9))
-           panel.abline(h = seq(0, 50, 10), col = gray(0.6))
+           panel.abline(h = -10:100, col = gray(0.9))
+           panel.abline(h = seq(-10, 100, 10), col = gray(0.6))
            panel.xyplot(x, y, ...)
          })
 }
@@ -69,7 +110,46 @@ plot_past_year <- function(datDaily) {
          pch = 18, type = "b",
          xlab = "Date", ylab = "Energy (kWh)",
          main = "Past 12 Months",
-         auto.key = list(space = "right"))
+         auto.key = list(space = "bottom", columns = 2))
+}
+
+#' Plot past 52 weeks of generation and consumption (weekly)
+#'
+#' @param datWeekly data.table with year, isoweek, generated, consumed columns
+#' @return lattice xyplot object
+plot_past_year_weekly <- function(datWeekly) {
+  # Get the last 52 complete weeks
+  # Sort by year and isoweek to ensure correct ordering
+  setorder(datWeekly, year, isoweek)
+  
+  # Take the last 52 rows
+  dat_subset <- tail(datWeekly, 52)
+  
+  # Add week labels and row indices
+  dat_subset[, week_label := paste0(year, "-W", sprintf("%02d", isoweek))]
+  dat_subset[, row_index := seq_len(.N)]
+  
+  # Select 13 evenly spaced labels (every 4 weeks)
+  label_indices <- seq(1, 52, by = 4)
+  label_text <- dat_subset$week_label[label_indices]
+  
+  xyplot(generated + consumed ~ row_index, dat_subset,
+         pch = 18, type = "b",
+         xlab = "Week", ylab = "Energy (kWh)",
+         main = "Past 52 Weeks",
+         scales = list(x = list(
+           at = label_indices,
+           labels = label_text,
+           rot = 90
+         )),
+         auto.key = list(space = "bottom", columns = 2),
+         panel = function(x, y, ...) {
+           panel.abline(v = seq(1, max(x), by = 2), col = gray(0.9))
+           panel.abline(v = seq(1, max(x), by = 4), col = gray(0.6))
+           panel.abline(h = seq(-100, 500, 10), col = gray(0.9))
+           panel.abline(h = seq(-100, 500, 50), col = gray(0.6))
+           panel.xyplot(x, y, ...)
+         })
 }
 
 #' Plot monthly aggregation faceted by year
@@ -86,7 +166,7 @@ plot_monthly_by_year <- function(datDaily, month = 8) {
          scales = list(x = list(relation = "free", rot = 90)),
          as.table = TRUE, layout = c(6, 1),
          strip = FALSE, strip.left = TRUE,
-         auto.key = list(space = "right"))
+         auto.key = list(space = "bottom", columns = 2))
 }
 
 #' Plot weekly aggregation for specified ISO weeks

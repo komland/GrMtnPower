@@ -2,6 +2,9 @@
 # Standardized data transformations
 # Kristian Omland
 
+library(data.table)
+library(lubridate)
+
 #' Add standardized date/time columns
 #'
 #' @param dat data.table with 'date' (ISO string) column
@@ -164,6 +167,32 @@ get_last_n_days <- function(dat, nDays = 30) {
   maxTime <- dat[, max(dateTime)]
   cutoffTime <- maxTime - (nDays * 24 * 60 * 60)
   return(dat[dateTime >= cutoffTime])
+}
+
+#' Remove incomplete last day from dataset
+#'
+#' @param dat data.table with hourly data containing 'dateForm' and 'dateTime' columns
+#' @return data.table with last day removed if it only has the midnight reading
+#' @details 
+#' Only removes the most recent date, and only if it has exactly one observation
+#' at midnight (hour 0). This prevents visualizations from showing today's data
+#' when only the midnight reading has been retrieved. Does not affect historical
+#' days that may have few readings due to power outages.
+remove_incomplete_days <- function(dat) {
+  # Get the last date
+  lastDate <- dat[, max(dateForm)]
+  
+  # Check how many rows exist for that date
+  lastDayData <- dat[dateForm == lastDate]
+  
+  # Only remove if exactly 1 row AND it's at midnight
+  if (nrow(lastDayData) == 1 && hour(lastDayData$dateTime[1]) == 0) {
+    cat("Removing incomplete last day:", as.character(lastDate), 
+        "(only midnight reading present)\n")
+    dat <- dat[dateForm != lastDate]
+  }
+  
+  return(dat)
 }
 
 #' Apply all standard transformations to raw API data
