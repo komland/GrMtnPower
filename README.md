@@ -110,7 +110,7 @@ This project retrieves hourly meter data from a residential solar + storage syst
 
 ### Utility Scripts
 
-**`getGMPdata.r`** — Low-level API client
+**`R/get-gmp-data.r`** — Low-level API client
 - `buildAndGet()` — Construct API request and fetch hourly data
 - Used by `data-retrieval.r`; rarely called directly
 
@@ -202,6 +202,36 @@ dat <- apply_standard_transformations(dat, addSolarPos = TRUE)
 
 ---
 
+## Automated Updates
+
+### GitHub Actions Deployment
+
+The repository includes a GitHub Actions workflow that automatically updates the power data weekly:
+
+**Schedule:** Every Monday at 6:00 AM UTC (1:00 AM EST / 2:00 AM EDT)
+
+**Workflow:** `.github/workflows/update-data.yml`
+
+**What it does:**
+1. Checks out the repository
+2. Sets up R 4.5.2 and restores `renv` environment
+3. Runs `update-main.r` to fetch new data from GMP API
+4. Commits updated `data/power_data.RDS` and timestamped backups
+5. Pushes changes back to the repository
+
+**Required Secrets:**
+Configure these in your GitHub repository settings (Settings → Secrets and variables → Actions):
+- `GMP_ACCOUNT` — Your GMP account number
+- `GMP_KEY_ID` — Your API key ID
+- `GMP_KEY_SECRET` — Your API secret key
+
+**Manual Trigger:**
+You can manually run the workflow from the GitHub Actions tab using the "Run workflow" button.
+
+**Note:** The workflow uses the built-in `GITHUB_TOKEN` for authentication, so no additional GitHub tokens are needed for pushing updates.
+
+---
+
 ## Troubleshooting
 
 ### Missing or out-of-sync packages
@@ -228,12 +258,6 @@ renv::restore()
 
 Solar position calculations use the `solarPos` R package.
 
-Data retrieval built on Green Mountain Power's publicly documented API.
+Data retrieved via Green Mountain Power's customer API with access provided by GMP.
 
----
 
-## License & Attribution
-
-Kristian Omland, 2019–2025
-
-See `getGMPdata.r` header for copyright notice and usage information.
