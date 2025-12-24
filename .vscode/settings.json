@@ -1,0 +1,8 @@
+{
+  // Disable automatic quick suggestions in Markdown files so prose isn't interrupted.
+  "[markdown]": {
+    "editor.quickSuggestions": { "other": false, "comments": false, "strings": false },
+    "editor.suggestOnTriggerCharacters": false,
+    "editor.inlineSuggest.enabled": false
+  }
+}

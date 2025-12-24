@@ -4,6 +4,7 @@
 
 library(data.table)
 library(lubridate)
+library(solarPos)
 
 #' Add standardized date/time columns
 #'

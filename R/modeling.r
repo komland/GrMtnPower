@@ -3,6 +3,9 @@
 # Kristian Omland
 
 library(mgcv)
+library(data.table)
+library(lubridate)
+library(lattice)
 
 #' Fit GAM model for generation based on solar position
 #'
@@ -150,3 +153,116 @@ model_summary_report <- function(model, data_used) {
     deviance_explained = paste0(round(summary(model)$dev.expl * 100, 2), "%")
   ))
 }
+
+#' Plot observed vs predicted generation from Y model
+#'
+#' @param dat data.table with generation and Y columns
+#' @param sample_frac fraction of points to plot (default: 0.1 for speed)
+#' @return lattice xyplot
+plot_Y_vs_observed <- function(dat, sample_frac = 0.1) {
+  dat_plot <- dat[Y > 0 & !is.na(generation)]
+  if (sample_frac < 1) {
+    dat_plot <- dat_plot[sample(.N, size = .N * sample_frac)]
+  }
+  
+  library(lattice)
+  
+  xyplot(generation ~ Y, dat_plot,
+         pch = 16, cex = 0.3, alpha = 0.3,
+         xlab = "Potential Generation Y (kWh)", 
+         ylab = "Observed Generation (kWh)",
+         main = "Observed vs. Potential Generation",
+         panel = function(x, y, ...) {
+           panel.abline(a = 0, b = 1, col = "red", lwd = 2)
+           panel.xyplot(x, y, ...)
+         })
+}
+
+#' Plot distribution of loss parameter q
+#'
+#' @param dat data.table with q column
+#' @return histogram
+plot_q_distribution <- function(dat) {
+  dat_q <- dat[!is.na(q)]
+  
+  hist(dat_q$q, breaks = 50, 
+       main = "Distribution of Loss Parameter q",
+       xlab = "Loss q (proportion)",
+       ylab = "Frequency",
+       col = "lightblue",
+       border = "white")
+  
+  abline(v = mean(dat_q$q), col = "red", lwd = 2, lty = 2)
+  abline(v = median(dat_q$q), col = "blue", lwd = 2, lty = 2)
+  
+  legend("topright", 
+         legend = c(paste("Mean =", round(mean(dat_q$q), 3)),
+                    paste("Median =", round(median(dat_q$q), 3))),
+         col = c("red", "blue"),
+         lty = 2,
+         lwd = 2)
+}
+
+#' Plot Y surface over azimuth and zenith
+#'
+#' @param model fitted GAM model
+#' @param n_grid grid resolution (default: 50)
+#' @return lattice contour/wireframe plot
+plot_Y_surface <- function(model, n_grid = 50) {
+  library(lattice)
+  
+  # Create prediction grid
+  azi_seq <- seq(135, 315, length.out = n_grid)
+  zen_seq <- seq(0, 90, length.out = n_grid)
+  grid <- expand.grid(azimuth = azi_seq, zenith = zen_seq)
+  grid <- as.data.table(grid)
+  
+  # Predict
+  grid[, Y_pred := predict(model, newdata = grid)]
+  grid[Y_pred < 0, Y_pred := 0]
+  
+  # Contour plot
+  levelplot(Y_pred ~ azimuth * zenith, grid,
+            main = "Potential Generation Y(azimuth, zenith)",
+            xlab = "Azimuth (degrees)",
+            ylab = "Zenith (degrees)",
+            col.regions = heat.colors(100),
+            contour = TRUE)
+}
+
+#' Plot q over time to detect trends
+#'
+#' @param dat data.table with dateForm and q columns
+#' @param aggregate_by aggregation level: "day", "week", or "month"
+#' @return lattice xyplot
+plot_q_over_time <- function(dat, aggregate_by = "month") {
+  library(lattice)
+  
+  dat_q <- dat[!is.na(q)]
+  
+  if (aggregate_by == "month") {
+    dat_q[, time_group := floor_date(dateForm, "month")]
+  } else if (aggregate_by == "week") {
+    dat_q[, time_group := floor_date(dateForm, "week")]
+  } else {
+    dat_q[, time_group := dateForm]
+  }
+  
+  # Aggregate
+  dat_agg <- dat_q[, .(
+    mean_q = mean(q, na.rm = TRUE),
+    median_q = median(q, na.rm = TRUE),
+    q25 = quantile(q, 0.25, na.rm = TRUE),
+    q75 = quantile(q, 0.75, na.rm = TRUE)
+  ), time_group]
+  
+  setorder(dat_agg, time_group)
+  
+  xyplot(mean_q + median_q ~ time_group, dat_agg,
+         type = "l",
+         auto.key = list(space = "right", lines = TRUE, points = FALSE),
+         xlab = "Date",
+         ylab = "Loss q (proportion)",
+         main = paste("Loss Over Time (", aggregate_by, "aggregation)", sep = ""))
+}
+
