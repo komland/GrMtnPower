@@ -70,8 +70,8 @@ print(xyplot(residual ~ zenith | cut(azimuth, breaks = 4), sample_dat,
              }))
 dev.off()
 
-# Plot 7: Capacity factor by year (degradation analysis)
-cat("7. Capacity factor by year (degradation check)...\n")
+# Plot 7: Capacity factor by year (control chart)
+cat("7. Capacity factor by year (control chart)...\n")
 png("plots/07_capacity_factor_by_year.png", width = 800, height = 600)
 
 # Calculate annual capacity factors for complete years
@@ -80,35 +80,85 @@ annual_cf <- annual_capacity[hours_total > 8000, .(
   capacity_factor = total_gen_kWh / total_Y0_kWh
 )]
 
-# Create plot
-plot(annual_cf$solarYear, annual_cf$capacity_factor,
-     type = "b", pch = 19, col = "blue",
-     xlab = "Solar Year", ylab = "Capacity Factor (Actual / Y0)",
-     main = "Annual Capacity Factor - Degradation Analysis",
-     ylim = c(0.45, 0.55))
+# Calculate control chart statistics
+cf_median <- median(annual_cf$capacity_factor)
+cf_q1 <- quantile(annual_cf$capacity_factor, 0.25)
+cf_q3 <- quantile(annual_cf$capacity_factor, 0.75)
+cf_iqr <- cf_q3 - cf_q1
+cf_lower <- cf_median - 1.5 * cf_iqr
+cf_upper <- cf_median + 1.5 * cf_iqr
 
-# Add trend line
-if (nrow(annual_cf) > 2) {
-  lm_fit <- lm(capacity_factor ~ solarYear, data = annual_cf)
-  abline(lm_fit, col = "red", lty = 2, lwd = 2)
-  
-  # Calculate annual degradation rate
-  slope <- coef(lm_fit)[2]
-  mean_cf <- mean(annual_cf$capacity_factor)
-  annual_deg_pct <- abs(slope / mean_cf * 100)
-  
-  # Add legend with degradation rate
-  legend("topright", 
-         legend = c("Annual CF", 
-                    "Trend line",
-                    sprintf("Degradation: %.2f%%/year", annual_deg_pct)),
-         col = c("blue", "red", NA),
-         lty = c(1, 2, NA),
-         pch = c(19, NA, NA),
-         lwd = c(1, 2, NA))
-}
+# Set y-axis limits to median +/- 1.6*IQR or slightly beyond data range
+ylim_lower <- min(cf_median - 1.6 * cf_iqr, min(annual_cf$capacity_factor) - 0.01)
+ylim_upper <- max(cf_median + 1.6 * cf_iqr, max(annual_cf$capacity_factor) + 0.01)
+
+# Create control chart (black and white)
+plot(annual_cf$solarYear, annual_cf$capacity_factor,
+     type = "b", pch = 19, col = "black",
+     xlab = "Solar Year", ylab = "Capacity Factor",
+     main = "Annual Capacity Factor Control Chart",
+     ylim = c(ylim_lower, ylim_upper))
+
+# Add control lines
+abline(h = cf_median, lty = 2, lwd = 2)           # Median (dashed)
+abline(h = cf_lower, lty = 3, lwd = 1)            # Lower control limit (dotted)
+abline(h = cf_upper, lty = 3, lwd = 1)            # Upper control limit (dotted)
 
 grid()
+dev.off()
+
+# Plot 8: Capacity factor by week of year (three-panel visualization)
+cat("8. Capacity factor by week of year (three panels)...\n")
+png("plots/08_capacity_factor_by_week.png", width = 1200, height = 900)
+par(mfrow = c(3, 1), mar = c(3, 4, 2, 1))
+
+# Calculate weekly summaries
+weekly_cf <- dat_model[Y0 > 0, .(
+  week_y0 = sum(Y0, na.rm = TRUE),
+  week_gen = sum(generation, na.rm = TRUE),
+  year = year(dateTime),
+  isoweek = isoweek(dateTime)
+), by = .(year = year(dateTime), isoweek = isoweek(dateTime))]
+
+# Filter to complete years
+complete_year_range <- annual_capacity[hours_total > 8000, range(solarYear)]
+weekly_cf <- weekly_cf[year >= complete_year_range[1] & year <= complete_year_range[2]]
+
+# Calculate capacity factor
+weekly_cf[, week_cf := week_gen / week_y0]
+
+# Filter to weeks 2-51 to avoid ISO week boundary weirdness
+weekly_cf_filtered <- weekly_cf[isoweek >= 2 & isoweek <= 51]
+
+# Top panel: Maximum Y0 by week (line plot)
+y0_max_by_week <- weekly_cf_filtered[, .(max_y0 = max(week_y0)), by = isoweek]
+setorder(y0_max_by_week, isoweek)
+
+plot(y0_max_by_week$isoweek, y0_max_by_week$max_y0,
+     type = "l", lwd = 2, col = "black",
+     xlab = "", ylab = "kWh",
+     main = "Capacity by Week",
+     xaxt = "n", las = 1)
+grid()
+
+# Middle panel: Capacity factor by week (boxplot)
+boxplot(week_cf ~ isoweek, data = weekly_cf_filtered,
+        xlab = "", ylab = "p",
+        main = "Capacity Factor by Week",
+        col = "lightgray", border = "black",
+        xaxt = "n", las = 1)
+grid()
+
+# Bottom panel: Actual generation by week (boxplot)
+par(mar = c(4, 4, 2, 1))
+boxplot(week_gen ~ isoweek, data = weekly_cf_filtered,
+        xlab = "ISO Week of Year", ylab = "kWh",
+        main = "Actual Generation by Week",
+        col = "lightgray", border = "black",
+        las = 1)
+grid()
+
+par(mfrow = c(1, 1))
 dev.off()
 
 cat("\n=== VISUALIZATIONS COMPLETE ===\n")
