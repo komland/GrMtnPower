@@ -37,6 +37,52 @@ jobs:
         run: |
           Rscript update-main.r
       
+      - name: Generate and publish weekly performance report
+        run: |
+          # Ensure publish script is executable
+          chmod +x scripts/publish_weekly_report.sh
+
+          # Run the publish script which extracts the report block and writes
+          # it to reports/week_WW_YYYY.txt (only the report block is saved)
+          scripts/publish_weekly_report.sh
+      
+      - name: Cleanup old reports
+        run: |
+          cd reports
+          
+          # Keep reports for ISO weeks 2-51
+          # When we have multiple years for the same week, keep only the most recent
+          
+          for week in $(seq 2 51); do
+            week_padded=$(printf '%02d' $week)
+            # Find all reports for this week number
+            week_files=$(ls -1 week_${week_padded}_*.txt 2>/dev/null | sort -r || true)
+            
+            if [ -n "$week_files" ]; then
+              # Keep the most recent (first in reverse sorted list)
+              keep=$(echo "$week_files" | head -n 1)
+              
+              # Delete older ones for this week
+              for file in $week_files; do
+                if [ "$file" != "$keep" ]; then
+                  echo "Deleting old report for week $week_padded: $file"
+                  rm -f "$file"
+                fi
+              done
+            fi
+          done
+          
+          # Delete any reports for weeks 1, 52, or 53 (boundary weeks we don't keep)
+          for week in 01 52 53; do
+            deleted=$(ls -1 week_${week}_*.txt 2>/dev/null || true)
+            if [ -n "$deleted" ]; then
+              echo "Deleting boundary week reports: $deleted"
+              rm -f week_${week}_*.txt
+            fi
+          done
+          
+          echo "Report cleanup complete"
+      
       - name: Cleanup old backup files
         run: |
           cd data
@@ -80,9 +126,11 @@ jobs:
           git config --local user.name "GitHub Actions Bot"
           git config --local user.email "actions@github.com"
           git add data/power_data.RDS data/power_data_*.RDS
+          git add reports/week_*.txt
           # Stage deletions too
           git add -u data/
-          git diff --staged --quiet || git commit -m "Auto-update power data: $(date +'%Y-%m-%d')"
+          git add -u reports/
+          git diff --staged --quiet || git commit -m "Auto-update power data and weekly report: $(date +'%Y-%m-%d')"
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

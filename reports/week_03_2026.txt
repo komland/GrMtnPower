@@ -1,0 +1,103 @@
+Checking for existing dat_model in workspace...
+Loading data and running full analysis pipeline...
+
+Running analyze-loss.r to generate Y0 capacity model...
+Loading data...
+Filtering to valid generation data...
+  Total observations with solar position: 88981 
+  Observations with generation > 0: 40121 
+
+Data summary:
+  Date range: 2015-10-27 to 2026-01-18 
+  Solar years: 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026 
+  Generation range: 0 to 6.03 kWh
+  Zenith range: 21.1 to 158.9 degrees
+  Azimuth range: 0 to 360 degrees
+
+=== FITTING CAPACITY UPPER ENVELOPE Y0 ===
+Creating (azimuth, zenith) grid bins...
+  Valid bins: 266 
+  Max generation in bins:  6.03 kWh
+
+Fitting smooth GAM to bin maxima...
+Model fit complete!
+Deviance explained: 98.87 %
+R-squared: 0.987 
+
+Predicting capacity Y0 for all observations...
+  Y0 range: 0 to 6.03 kWh
+  Observations exceeding Y0: 0 (should be 0)
+
+=== ESTIMATING LOSS PARAMETER q ===
+  Observations with valid q: 44631 
+  Mean loss q: 0.569 
+  Median loss q: 0.613 
+  SD loss q: 0.341 
+  Q25 loss q: 0.237 
+  Q75 loss q: 0.901 
+  Observations with q=0 (at capacity): 1866 (4.2%) 
+  Observations with q=1 (zero generation): 5047 (11.3%) 
+
+Fitting beta distribution to q...
+  Initial estimates: alpha = 0.86 , beta = 0.74 
+  Implied mean: 0.539 
+
+=== ANNUAL CAPACITY ESTIMATION ===
+
+Annual capacity by solar year:
+    solarYear total_Y0_kWh total_gen_kWh hours_Y0_positive hours_total
+        <num>        <num>         <num>             <int>       <int>
+ 1:      2015     163.0728         64.63                55         114
+ 2:      2016   14189.3743       6906.29              4389        8590
+ 3:      2017   13948.5731       6571.29              4307        8467
+ 4:      2018   14459.4861       6574.04              4449        8711
+ 5:      2019   14467.4966       6781.13              4465        8711
+ 6:      2020   14555.3146       7042.55              4501        8783
+ 7:      2021   14433.8621       6561.45              4448        8715
+ 8:      2022   14522.1691       6947.07              4494        8759
+ 9:      2023   14469.5276       6681.49              4476        8727
+10:      2024   14504.1217       6802.76              4487        8757
+11:      2025   14517.3116       6760.84              4486        8759
+12:      2026    2068.6526        326.11               706        1888
+
+Average across complete solar years:
+  Mean potential generation (Y0): 14407 kWh/year
+  Mean observed generation: 6763 kWh/year
+  Mean sunlight hours (Y0 > 0): 4450 hours/year
+
+Comparison to theoretical:
+  Theoretical (21 × 0.321 kW × 2300 hrs): 15504 kWh/year
+  Modeled potential Y0: 14407 kWh/year
+  Ratio (modeled/theoretical): 0.929 
+  Overall capacity factor (actual/Y0): 0.469 
+  Implied mean loss (1 - CF): 0.531 
+
+=== ANALYSIS COMPLETE ===
+Modeling results saved in workspace variables:
+  model_Y0: GAM model for upper capacity envelope
+  dat_model: full dataset with Y0 and q columns
+  dat_loss: subset with valid loss estimates
+  annual_capacity: yearly summaries
+===========================================
+         WEEKLY PERFORMANCE REPORT         
+===========================================
+ISO Week 3 (Jan 12 - Jan 18, 2026)
+Estimated Capacity: 186 kWh
+-------------------------------------------
+  Year  Generation (kWh)  Capacity Factor
+-------------------------------------------
+  2016              11.3            0.061
+  2017              51.0            0.274
+  2018               8.9            0.048
+  2019               0.0            0.000
+  2020               3.8            0.020
+  2021               0.0            0.000
+  2022               0.0            0.000
+  2023               6.0            0.032
+  2024               4.3            0.023
+  2025              15.1            0.081
+  2026              20.5            0.110
+-------------------------------------------
+  Median           6.0            0.032
+===========================================
+

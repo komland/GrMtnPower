@@ -249,3 +249,109 @@ validate_updated_dataset <- function(dat_new, dat_old) {
   
   return(list(passed = passed, messages = messages))
 }
+
+#' Generate weekly performance report for most recent complete week
+#'
+#' @param dat_model data.table with Y0, generation, dateTime, and ISO week columns
+#' @return invisibly returns data.table with weekly statistics
+#' @details
+#' Reports on the most recent complete ISO week:
+#' - Total generation (kWh)
+#' - Total capacity Y0 (kWh)
+#' - Realized capacity factor (generation/Y0)
+#' - Historical comparison: same week in prior years
+weekly_performance_report <- function(dat_model) {
+
+  # Ensure we have required columns
+  if (!all(c("Y0", "generation", "dateTime") %in% names(dat_model))) {
+    stop("dat_model must contain Y0, generation, and dateTime columns")
+  }
+
+  # Add ISO week and year if not present
+  if (!"isoweek" %in% names(dat_model)) {
+    dat_model[, isoweek := isoweek(dateTime)]
+  }
+  if (!"year" %in% names(dat_model)) {
+    dat_model[, year := year(dateTime)]
+  }
+
+  # Find most recent complete week
+  max_date <- dat_model[, max(dateTime, na.rm = TRUE)]
+  current_week <- isoweek(max_date)
+  current_year <- year(max_date)
+
+  # If current week incomplete, use previous week
+  hours_in_current_week <- dat_model[year == current_year & isoweek == current_week, .N]
+  expected_hours <- 7 * 24
+
+  if (hours_in_current_week < expected_hours) {
+    target_date <- max_date - 7
+    target_week <- isoweek(target_date)
+    target_year <- year(target_date)
+  } else {
+    target_week <- current_week
+    target_year <- current_year
+  }
+
+  # Calculate weekly summaries for all years (total Y0 and generation)
+  weekly_summary <- dat_model[Y0 > 0, .(
+    total_Y0 = sum(Y0, na.rm = TRUE),
+    total_gen = sum(generation, na.rm = TRUE)
+  ), by = .(year, isoweek)]
+
+  # Get data for target week across all years
+  target_data <- weekly_summary[isoweek == target_week]
+  setorder(target_data, year)
+
+  if (nrow(target_data) == 0) {
+    cat("ERROR: No data found for target week\n")
+    return(invisible(NULL))
+  }
+
+  # Determine fixed capacity: maximum total_Y0 across all years for this week
+  capacity_fixed <- ceiling(max(target_data$total_Y0, na.rm = TRUE))
+
+  # Compute capacity factor for each year using the fixed capacity
+  target_data[, capacity_factor := total_gen / capacity_fixed]
+
+  # Get date range for the week (approximate)
+  # ISO weeks run Monday-Sunday
+  week_start <- ISOdate(target_year, 1, 1) + (target_week - 1) * 7 * 24 * 3600
+  week_start <- as.Date(week_start)
+  # Adjust to nearest Monday
+  week_start <- week_start - (as.numeric(format(week_start, "%u")) - 1)
+  week_end <- week_start + 6
+  
+  # Format date range with year
+  date_range <- sprintf("%s - %s, %d", 
+                        format(week_start, "%b %d"),
+                        format(week_end, "%b %d"),
+                        target_year)
+
+  # Print report in compact format
+  cat("===========================================\n")
+  cat("         WEEKLY PERFORMANCE REPORT         \n")
+  cat("===========================================\n")
+  cat(sprintf("ISO Week %d (%s)\n", target_week, date_range))
+  cat(sprintf("Estimated Capacity: %d kWh\n", capacity_fixed))
+  cat("-------------------------------------------\n")
+  cat("  Year  Generation (kWh)  Capacity Factor\n")
+  cat("-------------------------------------------\n")
+
+  # Print all years
+  for (i in 1:nrow(target_data)) {
+    cat(sprintf("  %4d  %16.1f  %15.3f\n",
+                target_data$year[i],
+                target_data$total_gen[i],
+                target_data$capacity_factor[i]))
+  }
+
+  # Print median
+  cat("-------------------------------------------\n")
+  cat(sprintf("  Median%14.1f  %15.3f\n",
+              median(target_data$total_gen),
+              median(target_data$capacity_factor)))
+  cat("===========================================\n\n")
+
+  return(invisible(target_data))
+}
