@@ -67,12 +67,15 @@ add_solar_position <- function(dat, lon = -72.979348, lat = 44.468674) {
   # Filter to rows with generation data
   subdat <- dat[!is.na(generation), .(dateTime, generation)]
   
-  # Compute Julian Day
+  # Convert to UTC for solar position calculation (solarPos package expects UTC)
+  subdat[, dateTime_utc := with_tz(dateTime, "UTC")]
+  
+  # Compute Julian Day using UTC time
   subdat[, JD := julianDay(
-    year(dateTime),
-    month(dateTime),
-    mday(dateTime),
-    hour(dateTime)
+    year(dateTime_utc),
+    month(dateTime_utc),
+    mday(dateTime_utc),
+    hour(dateTime_utc)
   )]
   
   # Get solar position

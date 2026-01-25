@@ -160,16 +160,16 @@ model_summary_report <- function(model, data_used) {
 #' @param sample_frac fraction of points to plot (default: 0.1 for speed)
 #' @return lattice xyplot
 plot_Y_vs_observed <- function(dat, sample_frac = 0.1) {
-  dat_plot <- dat[Y > 0 & !is.na(generation)]
+  dat_plot <- dat[Y0 > 0 & !is.na(generation)]
   if (sample_frac < 1) {
     dat_plot <- dat_plot[sample(.N, size = .N * sample_frac)]
   }
   
   library(lattice)
   
-  xyplot(generation ~ Y, dat_plot,
+  xyplot(generation ~ Y0, dat_plot,
          pch = 16, cex = 0.3, alpha = 0.3,
-         xlab = "Potential Generation Y (kWh)", 
+         xlab = "Potential Generation Y0 (kWh)", 
          ylab = "Observed Generation (kWh)",
          main = "Observed vs. Potential Generation",
          panel = function(x, y, ...) {
@@ -203,31 +203,42 @@ plot_q_distribution <- function(dat) {
          lwd = 2)
 }
 
-#' Plot Y surface over azimuth and zenith
+#' Plot Y0 surface over azimuth and zenith
 #'
 #' @param model fitted GAM model
 #' @param n_grid grid resolution (default: 50)
+#' @param azi_range azimuth range in degrees (default: c(70, 350) centered on SSW)
+#' @param zen_range zenith range in degrees (default: c(0, 100) for overhead to twilight)
 #' @return lattice contour/wireframe plot
-plot_Y_surface <- function(model, n_grid = 50) {
+plot_Y_surface <- function(model, n_grid = 50, azi_range = c(70, 350), zen_range = c(0, 100)) {
   library(lattice)
   
-  # Create prediction grid
-  azi_seq <- seq(135, 315, length.out = n_grid)
-  zen_seq <- seq(0, 90, length.out = n_grid)
-  grid <- expand.grid(azimuth = azi_seq, zenith = zen_seq)
+  # Create prediction grid with variable names matching the model
+  azi_seq <- seq(azi_range[1], azi_range[2], length.out = n_grid)
+  zen_seq <- seq(zen_range[1], zen_range[2], length.out = n_grid)
+  grid <- expand.grid(mean_az = azi_seq, mean_zen = zen_seq)
   grid <- as.data.table(grid)
   
   # Predict
-  grid[, Y_pred := predict(model, newdata = grid)]
-  grid[Y_pred < 0, Y_pred := 0]
+  grid[, Y0_pred := predict(model, newdata = grid)]
+  grid[Y0_pred < 0, Y0_pred := 0]
+  
+  # Define axis labels with cardinal directions
+  azi_labels <- c(90, 135, 180, 225, 270, 315)
+  azi_names <- c("E", "SE", "S", "SW", "W", "NW")
+  # Filter to labels within the range
+  in_range <- azi_labels >= azi_range[1] & azi_labels <= azi_range[2]
+  azi_at <- azi_labels[in_range]
+  azi_lab <- azi_names[in_range]
   
   # Contour plot
-  levelplot(Y_pred ~ azimuth * zenith, grid,
-            main = "Potential Generation Y(azimuth, zenith)",
+  levelplot(Y0_pred ~ mean_az * mean_zen, grid,
+            main = "Potential Generation Y0(azimuth, zenith)",
             xlab = "Azimuth (degrees)",
             ylab = "Zenith (degrees)",
             col.regions = heat.colors(100),
-            contour = TRUE)
+            contour = TRUE,
+            scales = list(x = list(at = azi_at, labels = azi_lab)))
 }
 
 #' Plot q over time to detect trends
