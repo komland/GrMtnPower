@@ -37,6 +37,79 @@ jobs:
         run: |
           Rscript update-main.r
       
+      - name: Cleanup old backup files
+        run: |
+          cd data
+          # Keep canonical file (always)
+          # Keep last 8 weekly backups
+          # Keep one backup per calendar year (oldest of each year)
+          
+          # List all timestamped backups sorted by date (newest first)
+          backups=$(ls -1 power_data_*.RDS 2>/dev/null | sort -r || true)
+          
+          if [ -z "$backups" ]; then
+            echo "No backup files to clean up"
+            exit 0
+          fi
+          
+          # Keep last 8 backups
+          keep_recent=$(echo "$backups" | head -n 8)
+          
+          # Find one backup per year (use oldest/first backup of each year)
+          keep_yearly=$(echo "$backups" | sed 's/power_data_\([0-9]\{4\}\).*/\1/' | uniq | while read year; do
+            echo "$backups" | grep "^power_data_${year}" | tail -n 1
+          done)
+          
+          # Combine keep lists (unique)
+          keep_all=$(echo -e "$keep_recent\n$keep_yearly" | sort -u)
+          
+          # Delete backups not in keep list
+          deleted=0
+          for file in $backups; do
+            if ! echo "$keep_all" | grep -q "^${file}$"; then
+              echo "Deleting old backup: $file"
+              rm -f "$file"
+              deleted=$((deleted + 1))
+            fi
+          done
+          
+          echo "Cleanup complete: removed $deleted backup file(s)"
+      
+      - name: Commit and push updated data
+        run: |
+          git config --local user.name "GitHub Actions Bot"
+          git config --local user.email "actions@github.com"
+          git add data/power_data.RDS data/power_data_*.RDS
+          # Stage deletions too
+          git add -u data/
+          git diff --staged --quiet || git commit -m "Auto-update power data: $(date +'%Y-%m-%d')"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  generate-weekly-report:
+    runs-on: ubuntu-latest
+    needs: update-data
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: master  # Pull latest from update-data job
+      
+      - name: Setup R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: '4.5.2'
+      
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev
+      
+      - name: Setup renv
+        uses: r-lib/actions/setup-renv@v2
+      
       - name: Generate and publish weekly performance report
         run: |
           # Ensure publish script is executable
@@ -83,54 +156,14 @@ jobs:
           
           echo "Report cleanup complete"
       
-      - name: Cleanup old backup files
-        run: |
-          cd data
-          # Keep canonical file (always)
-          # Keep last 8 weekly backups
-          # Keep one backup per calendar year (oldest of each year)
-          
-          # List all timestamped backups sorted by date (newest first)
-          backups=$(ls -1 power_data_*.RDS 2>/dev/null | sort -r || true)
-          
-          if [ -z "$backups" ]; then
-            echo "No backup files to clean up"
-            exit 0
-          fi
-          
-          # Keep last 8 backups
-          keep_recent=$(echo "$backups" | head -n 8)
-          
-          # Find one backup per year (use oldest/first backup of each year)
-          keep_yearly=$(echo "$backups" | sed 's/power_data_\([0-9]\{4\}\).*/\1/' | uniq | while read year; do
-            echo "$backups" | grep "^power_data_${year}" | tail -n 1
-          done)
-          
-          # Combine keep lists (unique)
-          keep_all=$(echo -e "$keep_recent\n$keep_yearly" | sort -u)
-          
-          # Delete backups not in keep list
-          deleted=0
-          for file in $backups; do
-            if ! echo "$keep_all" | grep -q "^${file}$"; then
-              echo "Deleting old backup: $file"
-              rm -f "$file"
-              deleted=$((deleted + 1))
-            fi
-          done
-          
-          echo "Cleanup complete: removed $deleted backup file(s)"
-      
-      - name: Commit and push updated data
+      - name: Commit and push weekly report
         run: |
           git config --local user.name "GitHub Actions Bot"
           git config --local user.email "actions@github.com"
-          git add data/power_data.RDS data/power_data_*.RDS
           git add reports/week_*.txt
           # Stage deletions too
-          git add -u data/
           git add -u reports/
-          git diff --staged --quiet || git commit -m "Auto-update power data and weekly report: $(date +'%Y-%m-%d')"
+          git diff --staged --quiet || git commit -m "Auto-generate weekly performance report: $(date +'%Y-%m-%d')"
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

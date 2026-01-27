@@ -67,8 +67,14 @@ retrieve_new_data <- function(latestDate, currentDate = NULL, maxChunkSize = 29)
 #' Keeps rows from dat_old that aren't in dat_new (fresher updates for overlaps).
 #' Verifies no data loss during merge.
 merge_and_validate <- function(dat_old, dat_new) {
-  # Check column compatibility
-  validate_column_agreement(dat_old, dat_new, allowedMissing = "temperature")
+  # Check column compatibility.
+  # The canonical stored dataset contains some derived columns (solarYear, bev,
+  # JD, zenith, azimuth) that are not provided directly by the API. Keep the
+  # stored data minimal (API fields only); allow these derived columns to be
+  # missing from newly retrieved data during merge validation.
+  validate_column_agreement(dat_old, dat_new, allowedMissing = c(
+    "temperature", "solarYear", "bev", "JD", "zenith", "azimuth"
+  ))
   
   # Merge: keep old rows not in new, add all new rows
   dat_merged <- rbind(
