@@ -110,14 +110,15 @@ jobs:
       - name: Setup renv
         uses: r-lib/actions/setup-renv@v2
       
-      - name: Generate and publish weekly performance report
+      - name: Generate weekly performance data
         run: |
-          # Ensure publish script is executable
-          chmod +x scripts/publish_weekly_report.sh
-
-          # Run the publish script which extracts the report block and writes
-          # it to reports/week_WW_YYYY.txt (only the report block is saved)
-          scripts/publish_weekly_report.sh
+          # Run analysis to generate weekly summary data (saved as RDS)
+          Rscript scripts/generate_weekly_data.R
+      
+      - name: Publish weekly performance report
+        run: |
+          # Format the data as a text report and save to reports/
+          Rscript scripts/publish_weekly_report.R
       
       - name: Cleanup old reports
         run: |
