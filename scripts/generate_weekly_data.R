@@ -8,7 +8,7 @@ source("R/data-processing.r")
 
 # If dat_model not present, run analyze-loss.r
 if (!exists("dat_model")) {
-  source("analyze-loss.r")
+  source("analyze-loss-step-function.r")
 }
 
 library(data.table)

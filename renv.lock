@@ -1,6 +1,6 @@
 {
   "R": {
-    "Version": "4.5.2",
+    "Version": "4.5.3",
     "Repositories": [
       {
         "Name": "CRAN",
@@ -330,6 +330,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "3fb78d066fb92299b1d13f6a7c9a90a8"
+    },
+    "scam": {
+      "Package": "scam",
+      "Version": "1.2-22",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "5687e7ed51b1b44f956a6f23d7cb1979"
     },
     "shiny": {
       "Package": "shiny",

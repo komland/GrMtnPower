@@ -12,11 +12,12 @@ if (!file.exists("data/weekly_summary.RDS")) {
 
 weekly_summary <- readRDS("data/weekly_summary.RDS")
 
-# Calculate weekly generation by isoweek
+# Calculate weekly generation and potential Y0 by isoweek
 weekly_gen <- weekly_summary[, .(
   year = year,
   isoweek = isoweek,
-  total_gen = total_gen
+  total_gen = total_gen,
+  total_Y0 = total_Y0
 )]
 
 # Filter to ISO weeks 2-51 (avoid boundary weeks)
@@ -29,25 +30,39 @@ current_year <- year(Sys.Date())
 historical <- weekly_gen[year < current_year]
 current <- weekly_gen[year == current_year]
 
-# Calculate fixed capacity for capacity factor
-capacity_fixed <- ceiling(max(weekly_summary$total_Y0, na.rm = TRUE))
+# Compute per-week capacity baseline and capacity-factor using weekly potential (Y0)
+# Add per-row capacity-factor for historical data (use total_Y0 from weekly_summary)
+historical[, cf := ifelse(total_Y0 > 0, total_gen / total_Y0, NA_real_)]
 
-# Calculate summary statistics by ISO week (historical data)
+# Weekly summary statistics for generation and capacity factor (historical)
 weekly_stats <- historical[, .(
   median_gen = median(total_gen, na.rm = TRUE),
   q25 = quantile(total_gen, 0.25, na.rm = TRUE),
   q75 = quantile(total_gen, 0.75, na.rm = TRUE),
   min_gen = min(total_gen, na.rm = TRUE),
   max_gen = max(total_gen, na.rm = TRUE),
-  median_cf = median(total_gen / capacity_fixed, na.rm = TRUE),
-  q25_cf = quantile(total_gen / capacity_fixed, 0.25, na.rm = TRUE),
-  q75_cf = quantile(total_gen / capacity_fixed, 0.75, na.rm = TRUE),
-  min_cf = min(total_gen / capacity_fixed, na.rm = TRUE),
-  max_cf = max(total_gen / capacity_fixed, na.rm = TRUE)
+  median_cf = median(cf, na.rm = TRUE),
+  q25_cf = quantile(cf, 0.25, na.rm = TRUE),
+  q75_cf = quantile(cf, 0.75, na.rm = TRUE),
+  min_cf = min(cf, na.rm = TRUE),
+  max_cf = max(cf, na.rm = TRUE)
 ), by = isoweek]
 
-# Add capacity factor to current year data
-current[, capacity_factor := total_gen / capacity_fixed]
+# Compute median potential (Y0) per ISO week from historical years and
+# use that as the baseline for current-year capacity-factor calculation
+weekly_Y0_baseline <- historical[, .(median_Y0 = median(total_Y0, na.rm = TRUE)), by = isoweek]
+current <- merge(current, weekly_Y0_baseline, by = "isoweek", all.x = TRUE)
+current[, capacity_factor := ifelse(median_Y0 > 0, total_gen / median_Y0, NA_real_)]
+
+# Compute report-style (fixed-capacity) capacity factor so plotted CF matches weekly reports
+# Weekly report uses a fixed capacity equal to the ceiling of the maximum annual potential Y0
+capacity_fixed <- ceiling(max(weekly_summary$total_Y0, na.rm = TRUE))
+weekly_stats[, median_cf_report := median_gen / capacity_fixed]
+weekly_stats[, q25_cf_report := q25 / capacity_fixed]
+weekly_stats[, q75_cf_report := q75 / capacity_fixed]
+weekly_stats[, min_cf_report := min_gen / capacity_fixed]
+weekly_stats[, max_cf_report := max_gen / capacity_fixed]
+current[, capacity_factor_report := total_gen / capacity_fixed]
 
 setorder(weekly_stats, isoweek)
 setorder(current, isoweek)
