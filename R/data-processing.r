@@ -59,19 +59,15 @@ add_consumption_derived <- function(dat) {
 #' @param dat data.table with 'dateTime' (POSIXct) column
 #' @param lon longitude of observation site (default: Green Mountain Power location)
 #' @param lat latitude of observation site (default: Green Mountain Power location)
-#' @return data.table with new columns: JD, zenith, azimuth (for non-NA generation rows)
+#' @return data.table with new columns: JD, zenith, azimuth (for all rows)
 #' @details
 #' Requires solarPos package with solarPosition() and julianDay() functions.
-#' Only adds columns for rows with non-NA generation (PV system data).
 add_solar_position <- function(dat, lon = -72.979348, lat = 44.468674) {
-  # Filter to rows with generation data
-  subdat <- dat[!is.na(generation), .(dateTime, generation)]
-  
   # Convert to UTC for solar position calculation (solarPos package expects UTC)
-  subdat[, dateTime_utc := with_tz(dateTime, "UTC")]
+  dat[, dateTime_utc := with_tz(dateTime, "UTC")]
   
   # Compute Julian Day using UTC time
-  subdat[, JD := julianDay(
+  dat[, JD := julianDay(
     year(dateTime_utc),
     month(dateTime_utc),
     mday(dateTime_utc),
@@ -79,20 +75,16 @@ add_solar_position <- function(dat, lon = -72.979348, lat = 44.468674) {
   )]
   
   # Get solar position
-  sunPos <- solarPosition(jd = subdat[, JD], lon = lon, lat = lat)
+  sunPos <- solarPosition(jd = dat[, JD], lon = lon, lat = lat)
   
-  # Add to subdat
-  subdat[, `:=`(
+  # Add to data
+  dat[, `:=`(
     zenith = sunPos[, 1],
     azimuth = sunPos[, 2]
   )]
   
-  # Merge back to full dataset (will have NA for non-generation rows)
-  dat <- dat[subdat, on = "dateTime", `:=`(
-    JD = i.JD,
-    zenith = i.zenith,
-    azimuth = i.azimuth
-  )]
+  # Clean up temporary column
+  dat[, dateTime_utc := NULL]
   
   return(dat)
 }

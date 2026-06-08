@@ -1,0 +1,891 @@
+This is cmdstanr version 0.8.0
+- CmdStanR documentation and vignettes: mc-stan.org/cmdstanr
+- CmdStan path: /home/anyone/.cmdstan/cmdstan-2.39.0
+- CmdStan version: 2.39.0
+This is posterior version 1.7.0
+
+Attaching package: ‘posterior’
+
+The following objects are masked from ‘package:stats’:
+
+    mad, sd, var
+
+The following objects are masked from ‘package:base’:
+
+    %in%, match
+
+This is bayesplot version 1.15.0
+- Online documentation and vignettes at mc-stan.org/bayesplot
+- bayesplot theme set to bayesplot::theme_default()
+   * Does _not_ affect other ggplot2 plots
+   * See ?bayesplot_theme_set for details on theme setting
+
+Attaching package: ‘bayesplot’
+
+The following object is masked from ‘package:posterior’:
+
+    rhat
+
+
+Attaching package: ‘lubridate’
+
+The following objects are masked from ‘package:data.table’:
+
+    hour, isoweek, mday, minute, month, quarter, second, wday, week,
+    yday, year
+
+The following objects are masked from ‘package:base’:
+
+    date, intersect, setdiff, union
+
+Loading required package: nlme
+This is mgcv 1.9-1. For overview type 'help("mgcv-package")'.
+Loading data...
+Total observations: 92740 
+TEST MODE: Using 2 months of data ( 1456 observations)
+Filtered to 889 daytime observations (zenith < 95 degrees)
+Date range: 2026-03-25 to 2026-05-24 
+Generation range: 0 to 6.01 kWh/hr
+
+Constructing solar position spline basis (k = 25 )...
+  Basis dimensions: 889 x 24 
+
+Constructing seasonal spline basis (k = 12 )...
+  Basis dimensions: 889 x 10 
+
+Stan data prepared successfully.
+  Observations: 889 
+  Solar basis functions: 24 
+  Seasonal basis functions: 10 
+  Time range: 10.41 to 10.58 years
+
+Using Stan's default random initialization...
+
+==== Compiling Stan model ====
+
+==== Fitting model ====
+Chains: 2 
+Warmup iterations: 500 
+Sampling iterations: 500 
+Adapt delta: 0.95 
+Running MCMC with 2 parallel chains...
+
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -3.97783, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -3.97783, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.0132346, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.0132346, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.00619179, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.00619179, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -2.272, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -2.272, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.0729847, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.0729847, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.766825, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.766825, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -12481.2, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -12481.2, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.0971146, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.0971146, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -10515.9, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -10515.9, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -1.08309, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -1.08309, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -33.8841, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -33.8841, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -225.223, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -225.223, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.0223491, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.0223491, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.000278748, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.000278748, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -1.05126e+06, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -1.05126e+06, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.37814, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.37814, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -2.04361, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -2.04361, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -7508.4, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -7508.4, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -367.506, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -367.506, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -11521.9, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -11521.9, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.0542572, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.0542572, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -4.76826, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -4.76826, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -908.756, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -908.756, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -8958.94, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -8958.94, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.620876, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.620876, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.000461358, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.000461358, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -7922.75, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -7922.75, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -21386.4, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -21386.4, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.447494, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.447494, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -119.473, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -119.473, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -75.9434, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -75.9434, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.000405036, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.000405036, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -15.9932, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -15.9932, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -27.9737, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -27.9737, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.899928, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.899928, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -26.707, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -26.707, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.0109716, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.0109716, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -1.07379, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -1.07379, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -68.7827, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -68.7827, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -31.5035, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -31.5035, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -614653, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -614653, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -4.07993, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -4.07993, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.297224, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.297224, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -6.08309, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -6.08309, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.0183295, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.0183295, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.000106241, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.000106241, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -5.47638e+06, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -5.47638e+06, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -2770.95, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -2770.95, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -2284.43, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -2284.43, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -21.2068, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -21.2068, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.010152, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.010152, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.0181761, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.0181761, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -146558, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -146558, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -4.44889e-06, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -4.44889e-06, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -73259.8, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -73259.8, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.00872809, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.00872809, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -7.33491, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -7.33491, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -3297.95, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -3297.95, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.00302075, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.00302075, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -22.0502, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -22.0502, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -247.805, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -247.805, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.00182462, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.00182462, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -6.66177, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -6.66177, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -19.2177, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -19.2177, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -28.5299, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -28.5299, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -2.43071, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -2.43071, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -2523.73, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -2523.73, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -1.23358, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -1.23358, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.046349, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.046349, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -2.38438, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -2.38438, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.00883166, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.00883166, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -24.1195, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -24.1195, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -1.37808, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -1.37808, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.0837021, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.0837021, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -134.445, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -134.445, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.426002, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.426002, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.581919, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.581919, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -292468, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -292468, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.0130544, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.0130544, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Initialization between (-2, 2) failed after 100 attempts. 
+Chain 1  Try specifying initial values, reducing ranges of constrained values, or reparameterizing the model.
+Chain 1 Initialization failed.
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.00321868, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.00321868, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -26.2695, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -26.2695, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.295658, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.295658, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.337561, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.337561, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -4.91875e-07, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -4.91875e-07, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.00915478, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.00915478, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.0245097, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.0245097, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -122.984, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -122.984, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -19966.8, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -19966.8, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.0271317, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.0271317, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -115.761, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -115.761, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -13.8876, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -13.8876, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.336031, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.336031, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -298.944, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -298.944, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -10332.9, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -10332.9, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.0343555, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.0343555, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.0023736, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.0023736, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.056497, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.056497, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.0234779, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.0234779, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -8.964, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -8.964, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.00113089, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.00113089, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -60.2112, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -60.2112, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.447967, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.447967, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.90649, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.90649, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -1.73158, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -1.73158, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -3.79136, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -3.79136, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.00454954, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.00454954, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -600.892, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -600.892, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -4.21229, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -4.21229, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -2.97471, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -2.97471, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -88.9813, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -88.9813, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.149991, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.149991, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -6.41836e-06, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -6.41836e-06, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -3130.09, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -3130.09, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.000111784, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.000111784, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -6.07035, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -6.07035, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -159.318, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -159.318, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.78204, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.78204, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.0361428, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.0361428, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -25.5548, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -25.5548, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -6.86779, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -6.86779, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -878.593, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -878.593, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -2460.06, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -2460.06, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -126.851, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -126.851, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.000967493, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.000967493, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.162245, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.162245, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -36.3338, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -36.3338, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.0269057, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.0269057, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.954625, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.954625, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.152941, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.152941, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.917268, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.917268, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.51339, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.51339, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -30.8895, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -30.8895, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -16.9176, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -16.9176, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -1035.37, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -1035.37, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.00118043, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.00118043, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -974.378, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -974.378, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -4.26156e-05, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -4.26156e-05, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -6.03705, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -6.03705, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.00171814, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.00171814, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -13.4413, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -13.4413, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.0498999, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.0498999, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.120359, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.120359, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -40.718, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -40.718, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -29.4939, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -29.4939, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.183015, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.183015, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.700028, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.700028, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -3.84901, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -3.84901, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -1571.32, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -1571.32, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -714.715, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -714.715, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -95917.4, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -95917.4, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.0777063, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.0777063, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -4.16776, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -4.16776, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -16.7721, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -16.7721, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -144.453, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -144.453, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.00156574, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.00156574, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -101.463, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -101.463, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -24.7121, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -24.7121, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.00147985, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.00147985, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.00596901, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.00596901, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Initialization between (-2, 2) failed after 100 attempts. 
+Chain 2  Try specifying initial values, reducing ranges of constrained values, or reparameterizing the model.
+Chain 2 Initialization failed.
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.00108449, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.00108449, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -2.00104, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -2.00104, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -18.7742, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -18.7742, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.0362242, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.0362242, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -4249.47, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -4249.47, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -1.63852e+06, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -1.63852e+06, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.531685, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.531685, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.0400063, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.0400063, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -10.7129, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -10.7129, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.0188793, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.0188793, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.0599296, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.0599296, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -10949.5, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -10949.5, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -36.8582, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -36.8582, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -492.05, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -492.05, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -38.0795, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -38.0795, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.018427, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.018427, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.401963, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.401963, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.0506538, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.0506538, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.74365, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -0.74365, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -87.1483, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -87.1483, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Rejecting initial value:
+Chain 1   Error evaluating the log probability at the initial value.
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -2.85188, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 1 Exception: gamma_lpdf: Random variable[1] is -2.85188, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Warning: Chain 1 finished unexpectedly!
+
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -745.222, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -745.222, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -1.89754, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -1.89754, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -643.963, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -643.963, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.0303737, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.0303737, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -4.19694, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -4.19694, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -146.628, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -146.628, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -58.2074, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -58.2074, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.795696, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.795696, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -78.1667, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -78.1667, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -79524.2, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -79524.2, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -423888, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -423888, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.428817, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.428817, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -23.1675, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -23.1675, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -2.81603, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -2.81603, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.182043, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.182043, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -1.77514e-06, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -1.77514e-06, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.0465247, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.0465247, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -15.8514, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -15.8514, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.068057, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -0.068057, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Rejecting initial value:
+Chain 2   Error evaluating the log probability at the initial value.
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -33.5642, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Chain 2 Exception: gamma_lpdf: Random variable[1] is -33.5642, but must be positive finite! (in '/tmp/RtmpNItWYX/model-3a3f44d523408.stan', line 85, column 2 to column 54)
+Warning: Chain 2 finished unexpectedly!
+
+Warning: Use read_cmdstan_csv() to read the results of the failed chains.
+Warning messages:
+1: All chains finished unexpectedly! Use the $output(chain_id) method for more information.
+ 
+2: No chains finished successfully. Unable to retrieve the fit. 
+
+==== Saving results ====
+Error: No chains finished successfully. Unable to retrieve the draws.
+Execution halted
